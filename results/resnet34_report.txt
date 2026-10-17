@@ -1,16 +1,16 @@
 Testbilder: 7178
-Accuracy: 0.6680
+Accuracy: 0.6754
 
               precision    recall  f1-score   support
 
-       angry      0.563     0.605     0.584       958
-   disgusted      0.683     0.640     0.660       111
-     fearful      0.517     0.513     0.515      1024
-       happy      0.871     0.849     0.860      1774
-     neutral      0.641     0.602     0.621      1233
-         sad      0.542     0.551     0.546      1247
-   surprised      0.781     0.822     0.801       831
+       angry      0.571     0.624     0.596       958
+   disgusted      0.473     0.640     0.544       111
+     fearful      0.554     0.508     0.530      1024
+       happy      0.888     0.864     0.876      1774
+     neutral      0.644     0.587     0.614      1233
+         sad      0.527     0.565     0.545      1247
+   surprised      0.816     0.840     0.828       831
 
-    accuracy                          0.668      7178
-   macro avg      0.657     0.655     0.655      7178
-weighted avg      0.670     0.668     0.668      7178
+    accuracy                          0.675      7178
+   macro avg      0.639     0.661     0.648      7178
+weighted avg      0.679     0.675     0.676      7178
