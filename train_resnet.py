@@ -6,8 +6,10 @@ Ablauf:
   3. Das beste Modell wird nur anhand der Validierungs-Accuracy ausgewählt
   4. data/test wird hier nie angefasst, das macht danach evaluate_resnet.py genau einmal
 
-Nach jeder Epoche wird ein Checkpoint gespeichert. Mit --resume geht es nach einer
-Unterbrechung (z. B. Colab-Timeout) an derselben Stelle weiter.
+Nach jeder Epoche wird ein Checkpoint gespeichert. Mit --resume soll es nach einer
+Unterbrechung (z. B. Colab-Timeout) an derselben Stelle weitergehen.
+Achtung: Das Fortsetzen ist noch nicht praktisch getestet, der Checkpoint wurde bisher
+nur geschrieben, aber nie wieder geladen.
 
 Aufruf:
     python train_resnet.py

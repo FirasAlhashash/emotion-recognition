@@ -78,7 +78,7 @@ Zum Einordnen: Khaireddin & Chen kommen mit einem einzelnen, gut getunten VGG-Ne
 HOG.ipynb                     HOG-Features + SVM, inkl. Datenanalyse
 Sobel.ipynb                   Sobel-Gradienten + SVM
 Canny.ipynb                   Canny-Kanten + SVM
-train_resnet.py               Training ResNet34 mit eigenem Validierungs-Split, Checkpoints, Fortsetzen
+train_resnet.py               Training ResNet34 mit eigenem Validierungs-Split, Checkpoints, Fortsetzen (ungetestet)
 evaluate_resnet.py            Auswertung des ResNet34 auf dem Testset
 colab_train_resnet.ipynb      Training + Auswertung auf Google Colab (GPU), Checkpoints in Google Drive
 models/resnet34_fer2013.pth   Gewichte vom neu trainierten ResNet34 (67,5 % auf Test)
@@ -113,7 +113,9 @@ python evaluate_resnet.py
 
 ### Neu trainieren
 
-Am einfachsten über Colab: `colab_train_resnet.ipynb` öffnen, GPU-Laufzeit wählen und die Zellen der Reihe nach ausführen. Checkpoints landen nach jeder Epoche in Google Drive, nach einem Verbindungsabbruch geht es mit derselben Zelle an der gleichen Stelle weiter.
+Am einfachsten über Colab: `colab_train_resnet.ipynb` öffnen, GPU-Laufzeit wählen und die Zellen der Reihe nach ausführen. Checkpoints landen nach jeder Epoche in Google Drive, nach einem Verbindungsabbruch soll es mit derselben Zelle an der gleichen Stelle weitergehen.
+
+> **Hinweis:** Das Fortsetzen (`--resume`) ist noch nicht praktisch getestet. Der Colab-Lauf für die Ergebnisse oben ist ohne Unterbrechung durchgelaufen, der Checkpoint wurde also geschrieben, aber nie wieder geladen. Wer es ausprobiert: nach Epoche 1 abbrechen, Zelle neu starten, in der Ausgabe sollte „Fortgesetzt nach Epoche 1“ stehen.
 
 Lokal geht es auch, auf der CPU dauert eine Epoche aber ca. 10 Minuten:
 
