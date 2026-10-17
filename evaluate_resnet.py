@@ -38,6 +38,18 @@ test_transform = transforms.Compose([
 ])
 
 
+def evaluate(model, loader, device):
+    """Gibt Accuracy, wahre Labels und Vorhersagen zurück."""
+    model.eval()
+    y_true, y_pred = [], []
+    with torch.no_grad():
+        for images, labels in loader:
+            outputs = model(images.to(device))
+            y_pred += outputs.argmax(dim=1).cpu().tolist()
+            y_true += labels.tolist()
+    return accuracy_score(y_true, y_pred), y_true, y_pred
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", default="data/test")
@@ -49,19 +61,12 @@ def main():
 
     model = EmotionResNet()
     model.load_state_dict(torch.load(args.weights, map_location="cpu"))
-    model.to(device).eval()
+    model.to(device)
 
     test_set = datasets.ImageFolder(args.data, transform=test_transform)
     loader = torch.utils.data.DataLoader(test_set, batch_size=256)
 
-    y_true, y_pred = [], []
-    with torch.no_grad():
-        for images, labels in loader:
-            outputs = model(images.to(device))
-            y_pred += outputs.argmax(dim=1).cpu().tolist()
-            y_true += labels.tolist()
-
-    acc = accuracy_score(y_true, y_pred)
+    acc, y_true, y_pred = evaluate(model, loader, device)
     report = classification_report(y_true, y_pred, target_names=test_set.classes, digits=3)
     print(f"Testbilder: {len(test_set)}")
     print(f"Accuracy: {acc:.4f}\n")

@@ -1,9 +1,15 @@
-opencv-python
-numpy
-pandas
-matplotlib
-seaborn
-scikit-image
-scikit-learn
-torch
-torchvision
+# Getestet mit Python 3.11
+
+# Skripte (train_resnet.py, evaluate_resnet.py)
+torch==2.1.0
+torchvision==0.16.0
+scikit-learn==1.8.0
+numpy==1.26.4
+matplotlib==3.10.8
+pillow==12.2.0
+
+# Notebooks (Versionen aus den pip-Ausgaben der ursprünglichen Läufe)
+opencv-python==4.11.0.86
+scikit-image==0.24.0
+pandas==2.2.2
+seaborn==0.13.2

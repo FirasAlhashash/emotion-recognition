@@ -36,7 +36,9 @@ Alle Werte auf dem Testset (7.178 Bilder).
 
 Das ResNet34 lässt sich mit `evaluate_resnet.py` auf dem Testset neu auswerten, die Ausgabe liegt in [`results/`](results/). Die Werte pro Klasse weichen leicht von unserer Präsentation ab (dort stand 66 %), vermutlich weil auf der Folie ein anderer Epochenstand gezeigt wurde.
 
-Wichtig zur Einordnung: Der Kaggle-Datensatz hat nur train/ und test/. Wir haben das Testset während des Trainings auch zur Validierung benutzt und darüber das beste Modell gespeichert. Die 66,8 % sind deshalb eher etwas zu optimistisch. Sauberer wäre ein eigener Validierungs-Split aus den Trainingsdaten.
+**Wichtig zur Einordnung:** Der Kaggle-Datensatz hat nur train/ und test/. Wir haben das Testset während des Trainings auch zur Validierung benutzt und darüber das beste Modell ausgewählt. Die 66,8 % sind deshalb keine unabhängige Testleistung. Wie viel zu optimistisch sie sind, lässt sich nicht sagen.
+
+Deshalb gibt es jetzt `train_resnet.py` und `colab_train_resnet.ipynb` für ein sauberes Neutraining: 10 % der Trainingsdaten werden als Validierung abgetrennt, nur darüber wird das beste Modell ausgewählt, und das Testset wird erst ganz am Ende einmal ausgewertet. Das Ergebnis davon trage ich hier ein, sobald der Lauf durch ist.
 
 Ein paar Sachen, die uns aufgefallen sind:
 
@@ -54,18 +56,22 @@ Zum Einordnen: Khaireddin & Chen kommen mit einem einzelnen, gut getunten VGG-Ne
 HOG.ipynb                     HOG-Features + SVM, inkl. Datenanalyse
 Sobel.ipynb                   Sobel-Gradienten + SVM
 Canny.ipynb                   Canny-Kanten + SVM
+train_resnet.py               Training ResNet34 mit eigenem Validierungs-Split, Checkpoints, Fortsetzen
 evaluate_resnet.py            Auswertung des ResNet34 auf dem Testset
-models/resnet34_fer2013.pth   trainierte Gewichte vom ResNet34
+colab_train_resnet.ipynb      Training + Auswertung auf Google Colab (GPU), Checkpoints in Google Drive
+models/resnet34_fer2013.pth   Gewichte vom ursprünglichen Projekt (Modellauswahl auf dem Testset, s. o.)
 results/                      Klassifikationsbericht + Konfusionsmatrix vom ResNet34
 ```
 
-Der Trainingscode für das CNN, das ResNet34 und den FACS-Teil ist (noch) nicht hier drin.
+Der ursprüngliche Trainingscode für das CNN, das ResNet34 und den FACS-Teil ist nicht hier drin. `train_resnet.py` ist ein neu geschriebenes Trainingsskript, das sich an unserem damaligen Setup orientiert (96×96, Flip + Rotation, Klassengewichte, Label Smoothing, Adam, Cosine-LR).
 
 ## Ausführen
 
 ```bash
 pip install -r requirements.txt
 ```
+
+Die Versionen in `requirements.txt` sind die, mit denen die Skripte lokal (CPU, Python 3.11) getestet wurden. Auf Colab werden die dort vorinstallierten GPU-Versionen benutzt, das Notebook speichert sie nach `results/colab_versions.txt`.
 
 Den Datensatz von Kaggle laden und so ablegen:
 
@@ -81,6 +87,17 @@ Das ResNet34 auswerten:
 
 ```bash
 python evaluate_resnet.py
+```
+
+### Neu trainieren
+
+Am einfachsten über Colab: `colab_train_resnet.ipynb` öffnen, GPU-Laufzeit wählen und die Zellen der Reihe nach ausführen. Checkpoints landen nach jeder Epoche in Google Drive, nach einem Verbindungsabbruch geht es mit derselben Zelle an der gleichen Stelle weiter.
+
+Lokal geht es auch, auf der CPU dauert eine Epoche aber ca. 10 Minuten:
+
+```bash
+python train_resnet.py --resume
+python evaluate_resnet.py   # erst danach, und nur einmal
 ```
 
 ### ResNet34 laden
