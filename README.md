@@ -2,6 +2,8 @@
 
 [![In Colab öffnen](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/FirasAlhashash/emotion-recognition/blob/main/colab_train_resnet.ipynb)
 
+Für das Training in Colab eine GPU-Laufzeit auswählen. Die Anleitung steht im Notebook.
+
 Projekt aus dem Modul *Grundlagen der Computer Vision* (SoSe 2025, OVGU Magdeburg), zusammen mit Miká und Konstantin.
 
 Mein Teil im Team waren die Deep-Learning-Modelle (eigenes CNN und ResNet34), dazu habe ich am FACS-Ansatz und an der Präsentation mitgearbeitet.
